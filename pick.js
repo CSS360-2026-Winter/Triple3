@@ -2,11 +2,11 @@ const { SlashCommandBuilder } = require('discord.js');
 const { userSessions } = require('../state');
 
 const recipes = [
-    "Spicy Garlic Noodles",
-    "Creamy Tomato Basil Pasta",
-    "Chicken Stir Fry",
-    "Veggie Quesadilla",
-    "Lemon Herb Salmon"
+    "Veggie & Egg Fried Rice",
+    "One-Pan Quesadilla (or wrap melt)",
+    "Garlic Butter (or Olive Oil) Pasta",
+    "Microwave Sweet Potato Bowl",
+    "Quick Ramen"
 ];
 
 module.exports = {
