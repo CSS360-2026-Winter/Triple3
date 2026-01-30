@@ -19,7 +19,8 @@ module.exports = {
             message += `${i + 1}. ${r}\n`;
         });
 
+        message += "\nTell me which one you want by using `/pick number: X`.";
+
         await interaction.reply(message);
     }
 };
-
