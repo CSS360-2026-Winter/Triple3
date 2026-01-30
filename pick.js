@@ -1,11 +1,12 @@
 const { SlashCommandBuilder } = require('discord.js');
+const { userSessions } = require('../state');
 
 const recipes = [
-    "Veggie & Egg Fried Rice",
-    "One-Pan Quesadilla (or wrap melt)",
-    "Garlic Butter (or Olive Oil) Pasta",
-    "Microwave Sweet Potato Bowl",
-    "Quick Ramen"
+    "Spicy Garlic Noodles",
+    "Creamy Tomato Basil Pasta",
+    "Chicken Stir Fry",
+    "Veggie Quesadilla",
+    "Lemon Herb Salmon"
 ];
 
 module.exports = {
@@ -26,6 +27,13 @@ module.exports = {
         }
 
         const chosen = recipes[num - 1];
+
+        // Save session data for this user
+        userSessions.set(interaction.user.id, {
+            chosenRecipe: chosen,
+            timestamp: Date.now()
+        });
+
         await interaction.reply(`Great choice! You picked **${chosen}**.`);
     }
 };
