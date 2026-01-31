@@ -19,7 +19,7 @@ export default {
       message += `${i + 1}. ${r}\n`;
     });
 
-    message += "\nTell me which one you want by entering the recipe number.";
+    message += "\nTell me which one you want by entering the recipe number using the /pick command.";
 
     await interaction.reply(message);
   }
