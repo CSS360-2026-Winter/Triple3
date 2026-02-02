@@ -33,4 +33,4 @@ const recipes = {
 
 export const getAllergen = async (recipeNumber, allergen) => {
   return recipes[recipeNumber]?.[allergen.toLowerCase()];
-};
+
