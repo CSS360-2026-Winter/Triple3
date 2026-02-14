@@ -1,8 +1,6 @@
 # Cohesion and Coupling
 
-## Cohesion
-
-### Our cooking bot has the following dependencies between modules:
+## Coupling: Our cooking bot has the following dependencies between modules:
 
 ### 1. External Coupling:
 All our command files depend on discord.js. If Discord's API changes, our commands will no longer function.
