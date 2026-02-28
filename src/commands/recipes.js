@@ -1,5 +1,6 @@
 
 import { SlashCommandBuilder } from "discord.js";
+import { getCommandInstructions } from "../helpers/commandHelp.js";
 
 const recipes = [
   "Veggie & Egg Fried Rice",
@@ -48,5 +49,8 @@ export default {
     message += "\nTell me which one you want by entering the recipe number.";
 
     await interaction.reply(message);
+
+    // send help panel AFTER recipe list
+    await interaction.followUp(getCommandInstructions());
   }
 };
