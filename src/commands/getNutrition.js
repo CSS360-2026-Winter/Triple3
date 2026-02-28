@@ -1,22 +1,46 @@
-// src/commands/getNutrition.js
-import nutritionData from "../data/nutrition.js";
+import { SlashCommandBuilder } from "discord.js";
+import nutrition from "../helpers/nutrition.js";
+//comment check! 
 
-export function getNutritionById(recipeId) {
-  return nutritionData[recipeId] || null;
+// Normalize user input to match nutrition keys
+function normalizeRecipeName(name) {
+  return name
+    .toLowerCase()
+    .replace(/&/g, "and")
+    .replace(/[^a-z0-9 ]/g, "") // remove punctuation
+    .replace(/\s+/g, "_")        // spaces → underscores
+    .trim();
 }
 
-export function formatNutritionLabel(recipeId) {
-  const data = nutritionData[recipeId];
+export default {
+  data: new SlashCommandBuilder()
+    .setName("nutrition")
+    .setDescription("Get nutrition info for a recipe")
+    .addStringOption(option =>
+      option
+        .setName("recipe")
+        .setDescription("Enter a recipe name")
+        .setRequired(true)
+    ),
 
-  if (!data) {
-    return "Nutrition data not found.";
-  }
+  async execute(interaction) {
+    const rawInput = interaction.options.getString("recipe");
+    const key = normalizeRecipeName(rawInput);
 
-  return `
-Calories: ${data.calories} kcal
-Protein: ${data.protein} g
-Carbs: ${data.carbs} g
-Fat: ${data.fat} g
-Fiber: ${data.fiber} g
-`;
-}
+    if (!nutrition[key]) {
+      return interaction.reply(
+        `I couldn't find nutrition info for **${rawInput}**. Try typing the recipe name more clearly.`
+      );
+    }
+
+    const info = nutrition[key];
+
+    await interaction.reply(
+      `**Nutrition for ${rawInput}:**\n` +
+      `Calories: ${info.calories}\n` +
+      `Protein: ${info.protein}\n` +
+      `Carbs: ${info.carbs}\n` +
+      `Fat: ${info.fat}`
+    );
+  },
+};

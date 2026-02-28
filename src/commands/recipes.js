@@ -28,11 +28,7 @@ const recipes = [
   "Tomato & Egg Skillet",
   "Chocolate Mug Cake",
   "Chickpea Coconut Curry",
-  "Spinach & Cheese Toast",
-  "Yogurt Berry Bowl",
-  "Mediterranean Chickpea Salad",
-  "Egg & Cheese Breakfast Sandwich",
-  "Rice and Beans Comfort Bowl",
+  
 ];
 
 export default {
