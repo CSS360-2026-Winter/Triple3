@@ -25,7 +25,7 @@ export default {
     const recipe = recipesArray[choice];
 
     if (!recipe) {
-      return interaction.reply("❌ Invalid recipe number. Please pick 1–5.");
+      return interaction.reply("❌ Invalid recipe number. Please pick a recipe number.");
     }
 
     setUserRecipe(interaction.user.id, choice);

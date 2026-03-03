@@ -34,7 +34,7 @@ const recipes = [
 export default {
   data: new SlashCommandBuilder()
     .setName("recipes")
-    .setDescription("Shows 5 recipe options"),
+    .setDescription("Shows recipe options"),
 
   async execute(interaction) {
     let message = "Here are 5 recipes you can choose from:\n\n";
