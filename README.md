@@ -54,7 +54,7 @@ The bot provides basic nutritional values associated with the selected recipe.
 
 ### Timer 
 Users can enter a timer length of their choice to keep track of cooking time. 
-The timer beeps when the time runs out.
+The timer displays a pop-up when the time runs out.
 
 ---
 
@@ -97,4 +97,5 @@ After selecting a cuisine, choose a recipe using:
 6. Set a timer: timer/2
 7. Rate the recipe: /rate
 8. View Ratings: /ratings
+
 
