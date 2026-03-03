@@ -1,12 +1,34 @@
 
 import { SlashCommandBuilder } from "discord.js";
+import { getCommandInstructions } from "../helpers/commandHelp.js";
 
 const recipes = [
   "Veggie & Egg Fried Rice",
   "One-Pan Quesadilla (or wrap melt)",
   "Garlic Butter (or Olive Oil) Pasta",
   "Microwave Sweet Potato Bowl",
-  "Quick Ramen" 
+  "Quick Ramen",
+  "Peanut Butter Banana Toast",
+  "Greek Yogurt Parfait",
+  "Tuna Salad Wrap",
+  "Caprese Sandwich",
+  "Vegetable Soy Skillet",
+  "Single-Serve Shakshuka",
+  "Avocado Toast with Chili Flakes",
+  "Microwave Mug Omelet",
+  "Pesto Penne",
+  "Black Bean Rice Bowl",
+  "Chicken Hummus Wrap",
+  "Masala Toast",
+  "Cheesy Baked Potato",
+  "Cold Sesame Noodles",
+  "Simple Lentil Soup",
+  "Kimchi Rice Bowl",
+  "Banana Oat Pancakes",
+  "Tomato & Egg Skillet",
+  "Chocolate Mug Cake",
+  "Chickpea Coconut Curry",
+  
 ];
 
 export default {
@@ -23,5 +45,8 @@ export default {
     message += "\nTell me which one you want by entering the recipe number.";
 
     await interaction.reply(message);
+
+    // send help panel AFTER recipe list
+    await interaction.followUp(getCommandInstructions());
   }
 };
