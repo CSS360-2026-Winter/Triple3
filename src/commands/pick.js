@@ -56,6 +56,10 @@ export default {
     response += "**egg, dairy, gluten, soy**\n";
     response += "Use the `/allergen` command to receive an alternative recipe.";
 
-    await interaction.reply(response);
+    await interaction.reply({
+      content: response,
+      allowedMentions: { parse: [] },
+      flags: 1 << 2
+    });
   },
 };
