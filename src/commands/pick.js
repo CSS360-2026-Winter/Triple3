@@ -10,7 +10,7 @@ const recipesArray = [
 export default {
   data: new SlashCommandBuilder()
     .setName("pick")
-    .setDescription("Select a recipe by number")
+    .setDescription("Choose a recipe from the dropdown")
     .addIntegerOption(option =>
       option
         .setName("number")
