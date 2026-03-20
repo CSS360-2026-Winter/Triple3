@@ -1,16 +1,11 @@
 import { SlashCommandBuilder } from "discord.js";
 import nutrition from "../helpers/nutrition.js";
-//comment check! 
 
-// Normalize user input to match nutrition keys
-function normalizeRecipeName(name) {
-  return name
-    .toLowerCase()
-    .replace(/&/g, "and")
-    .replace(/[^a-z0-9 ]/g, "") // remove punctuation
-    .replace(/\s+/g, "_")        // spaces → underscores
-    .trim();
-}
+// Convert nutrition keys into dropdown choices
+const recipeChoices = Object.keys(nutrition).map(key => ({
+  name: key.replace(/_/g, " "), // prettier label
+  value: key                    // actual lookup key
+}));
 
 export default {
   data: new SlashCommandBuilder()
@@ -19,24 +14,17 @@ export default {
     .addStringOption(option =>
       option
         .setName("recipe")
-        .setDescription("Enter a recipe name")
+        .setDescription("Choose a recipe")
         .setRequired(true)
+        .addChoices(...recipeChoices)
     ),
 
   async execute(interaction) {
-    const rawInput = interaction.options.getString("recipe");
-    const key = normalizeRecipeName(rawInput);
-
-    if (!nutrition[key]) {
-      return interaction.reply(
-        `I couldn't find nutrition info for **${rawInput}**. Try typing the recipe name more clearly.`
-      );
-    }
-
+    const key = interaction.options.getString("recipe");
     const info = nutrition[key];
 
     await interaction.reply(
-      `**Nutrition for ${rawInput}:**\n` +
+      `**Nutrition for ${key.replace(/_/g, " ")}:**\n` +
       `Calories: ${info.calories}\n` +
       `Protein: ${info.protein}\n` +
       `Carbs: ${info.carbs}\n` +
