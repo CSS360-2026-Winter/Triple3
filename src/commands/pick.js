@@ -4,8 +4,8 @@ import { setUserRecipe } from "../state.js";
 
 // Convert recipes into dropdown choices
 const recipeChoices = Object.values(recipesObj).map((recipe, index) => ({
-  name: recipe.name,   // what the user sees
-  value: String(index + 1) // what we store internally
+  name: recipe.name,
+  value: String(index + 1)
 }));
 
 export default {
@@ -32,7 +32,6 @@ export default {
 
     setUserRecipe(interaction.user.id, index);
 
-    // Number instructions
     const numberedInstructions = recipe.instructions
       .map((step, i) => `${i + 1}. ${step}`)
       .join("\n");
