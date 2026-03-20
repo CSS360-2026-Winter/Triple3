@@ -2,37 +2,39 @@ import { SlashCommandBuilder } from "discord.js";
 import recipesObj from "../helpers/recipes.js";
 import { setUserRecipe } from "../state.js";
 
-const recipesArray = [
-  null,
-  ...Object.values(recipesObj)
-];
+// Convert recipes into dropdown choices
+const recipeChoices = Object.values(recipesObj).map((recipe, index) => ({
+  name: recipe.name,   // what the user sees
+  value: String(index + 1) // what we store internally
+}));
 
 export default {
   data: new SlashCommandBuilder()
     .setName("pick")
     .setDescription("Choose a recipe from the dropdown")
-    .addIntegerOption(option =>
+    .addStringOption(option =>
       option
-        .setName("number")
-        .setDescription("The recipe number")
+        .setName("recipe")
+        .setDescription("Select a recipe")
         .setRequired(true)
-        .setMinValue(1)
-        .setMaxValue(recipesArray.length - 1)
+        .addChoices(...recipeChoices)
     ),
 
   async execute(interaction) {
-    const choice = interaction.options.getInteger("number");
-    const recipe = recipesArray[choice];
+    const choice = interaction.options.getString("recipe");
+    const index = parseInt(choice, 10);
+
+    const recipe = Object.values(recipesObj)[index - 1];
 
     if (!recipe) {
-      return interaction.reply("❌ Invalid recipe number. Please pick a valid recipe number.");
+      return interaction.reply("❌ Invalid recipe selection.");
     }
 
-    setUserRecipe(interaction.user.id, choice);
+    setUserRecipe(interaction.user.id, index);
 
-    // Number the instructions dynamically
+    // Number instructions
     const numberedInstructions = recipe.instructions
-      .map((step, index) => `${index + 1}. ${step}`)
+      .map((step, i) => `${i + 1}. ${step}`)
       .join("\n");
 
     let response = `🍽 **${recipe.name}**\n\n`;
